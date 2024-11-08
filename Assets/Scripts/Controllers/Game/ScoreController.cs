@@ -33,36 +33,35 @@ namespace Controllers.Game
             return _playerScores.ContainsKey(pPlayerName) ? _playerScores[pPlayerName] : 0;
         }
         
-        public void AddScore(string pPlayerName, int pScore)
-        {
-            if (!_playerScores.TryAdd(pPlayerName, pScore))
-            {
-                _playerScores[pPlayerName] = pScore;
-                photonView.RPC("SyncPlayerAddScore", RpcTarget.AllBuffered, pPlayerName, pScore);
-            }
-        }
+        // public void AddScore(string pPlayerName, int pScore)
+        // {
+        //     if (!_playerScores.TryAdd(pPlayerName, pScore))
+        //     {
+        //         _playerScores[pPlayerName] = pScore;
+        //         photonView.RPC("SyncPlayerAddScore", RpcTarget.AllBuffered, pPlayerName, pScore);
+        //     }
+        // }
+        //
+        // public void RemoveScore(string pPlayerName, int pScore)
+        // {
+        //     if (_playerScores.ContainsKey(pPlayerName))
+        //     {
+        //         _playerScores[pPlayerName] = pScore;
+        //         photonView.RPC("SyncPlayerRemoveScore", RpcTarget.AllBuffered, pPlayerName, pScore);
+        //     }
+        // }
         
-        public void RemoveScore(string pPlayerName, int pScore)
-        {
-            if (_playerScores.ContainsKey(pPlayerName))
-            {
-                _playerScores[pPlayerName] = pScore;
-                photonView.RPC("SyncPlayerRemoveScore", RpcTarget.AllBuffered, pPlayerName, pScore);
-            }
-        }
-        
-        [PunRPC]
-        private void SyncPlayerAddScore(string pPlayerName, int pScore)
-        {
-            AddScore(pPlayerName, pScore);
-        }
-        
-        [PunRPC]
-        private void SyncPlayerRemoveScore(string pPlayerName, int pScore)
-        {
-            RemoveScore(pPlayerName, pScore);
-        }
-        
+        // [PunRPC]
+        // private void SyncPlayerAddScore(string pPlayerName, int pScore)
+        // {
+        //     AddScore(pPlayerName, pScore);
+        // }
+        //
+        // [PunRPC]
+        // private void SyncPlayerRemoveScore(string pPlayerName, int pScore)
+        // {
+        //     RemoveScore(pPlayerName, pScore);
+        // }
         
         
         public void ResetScore(string pPlayerName)
@@ -80,7 +79,7 @@ namespace Controllers.Game
         public void UpdateScore(string pPlayerName, int pScore)
         {
             _playerScores[pPlayerName] = pScore;
-            photonView.RPC("SyncPlayerScore", RpcTarget.AllBuffered, pPlayerName, pScore);
+            photonView.RPC("SyncPlayerOnListAndUpdateScore", RpcTarget.AllBuffered, pPlayerName, pScore);
         }
         
         public void FetchAllPlayerScores()
@@ -103,7 +102,7 @@ namespace Controllers.Game
         }
         
         [PunRPC]
-        private void SyncPlayerScore(string pPlayerName, int pScore)
+        private void SyncPlayerOnListAndUpdateScore(string pPlayerName, int pScore)
         {
             _playerScores[pPlayerName] = pScore;
         }

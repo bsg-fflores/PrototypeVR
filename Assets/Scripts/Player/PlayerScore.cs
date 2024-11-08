@@ -18,23 +18,6 @@ namespace Player
             photonView.RPC("SyncPlayerName", RpcTarget.AllBuffered, playerName);
         }
 
-        private void Update()
-        {
-            if (photonView.IsMine)
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    AddScore(1);
-                    Debug.LogError($"Score: {score}");
-                }
-                if (Input.GetKeyDown(KeyCode.X))
-                {
-                    RemoveScore(1);
-                    Debug.LogError($"Score: {score}");
-                }
-            }
-        }
-
         public void AddScore(int pScore)
         {
             this.score += pScore;

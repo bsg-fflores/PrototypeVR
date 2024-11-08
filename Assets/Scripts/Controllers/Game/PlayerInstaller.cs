@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -28,11 +29,6 @@ namespace Controllers.Game
         [PunRPC]
         private void SpawnPlayers()
         {
-            // for (int i = 0; i < _spawnPoints.Length; i++)
-            // {
-            //     GameObject player = PhotonNetwork.Instantiate($"{_PLAYER_PREFAB_PATH}/{_playerPrefabs[i].name}", _spawnPoints[i].position, Quaternion.identity);
-            // }
-            // PhotonNetwork.Instantiate($"{_PLAYER_PREFAB_PATH}/{_playerPrefabs[0].name}", _spawnPoints[0].position, Quaternion.identity);
             
             // PhotonNetwork.Instantiate($"{_PLAYER_PREFAB_PATH}/{_playerPrefabs[0].name}", new Vector3(Random.Range(0f, 5f), 1f, Random.Range(0, 5f)), Quaternion.identity);
             
@@ -58,7 +54,7 @@ namespace Controllers.Game
 
             if (PhotonNetwork.IsConnectedAndReady)
             {
-                photonView.RPC("SpawnPlayers", RpcTarget.AllBuffered);
+                SpawnPlayers();
             }
         }
     }
