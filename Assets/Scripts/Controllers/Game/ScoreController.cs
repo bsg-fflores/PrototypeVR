@@ -38,6 +38,7 @@ namespace Controllers.Game
             if (!_playerScores.TryAdd(pPlayerName, pScore))
             {
                 _playerScores[pPlayerName] = pScore;
+                photonView.RPC("SyncPlayerAddScore", RpcTarget.AllBuffered, pPlayerName, pScore);
             }
         }
         
@@ -46,8 +47,23 @@ namespace Controllers.Game
             if (_playerScores.ContainsKey(pPlayerName))
             {
                 _playerScores[pPlayerName] = pScore;
+                photonView.RPC("SyncPlayerRemoveScore", RpcTarget.AllBuffered, pPlayerName, pScore);
             }
         }
+        
+        [PunRPC]
+        private void SyncPlayerAddScore(string pPlayerName, int pScore)
+        {
+            AddScore(pPlayerName, pScore);
+        }
+        
+        [PunRPC]
+        private void SyncPlayerRemoveScore(string pPlayerName, int pScore)
+        {
+            RemoveScore(pPlayerName, pScore);
+        }
+        
+        
         
         public void ResetScore(string pPlayerName)
         {
@@ -60,6 +76,11 @@ namespace Controllers.Game
         public void ResetAllScores()
         {
             _playerScores.Clear();
+        }
+        public void UpdateScore(string pPlayerName, int pScore)
+        {
+            _playerScores[pPlayerName] = pScore;
+            photonView.RPC("SyncPlayerScore", RpcTarget.AllBuffered, pPlayerName, pScore);
         }
         
         public void FetchAllPlayerScores()
@@ -79,6 +100,12 @@ namespace Controllers.Game
         public List<KeyValuePair<string, int>> GetScoresOrdered()
         {
             return _playerScores.OrderByDescending(p => p.Value).ToList();
+        }
+        
+        [PunRPC]
+        private void SyncPlayerScore(string pPlayerName, int pScore)
+        {
+            _playerScores[pPlayerName] = pScore;
         }
 
         // [PunRPC]

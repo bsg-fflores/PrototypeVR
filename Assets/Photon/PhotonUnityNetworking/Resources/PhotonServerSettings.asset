@@ -46,6 +46,8 @@ MonoBehaviour:
   - SyncPlayerName
   - SetPlayerName
   - InitializeDictionary
+  - SyncPlayerAddScore
+  - SyncPlayerRemoveScore
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

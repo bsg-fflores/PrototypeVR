@@ -39,8 +39,8 @@ namespace Player
         {
             this.score += pScore;
             
+            ScoreController.Instance.UpdateScore(playerName, score); // Cambiamos a UpdateScore para centralizar
             photonView.RPC("SyncScore", RpcTarget.AllBuffered, score);
-            ScoreController.Instance.AddScore(playerName, score);
             GameController.Instance.CheckGameEnd(score);
             
         }
@@ -48,8 +48,8 @@ namespace Player
         public void RemoveScore(int pScore)
         {
             this.score -= pScore;
+            ScoreController.Instance.UpdateScore(playerName, score); // Cambiamos a UpdateScore para centralizar
             photonView.RPC("SyncScore", RpcTarget.AllBuffered, score);
-            ScoreController.Instance.RemoveScore(playerName, score);
         }
         
         [PunRPC]

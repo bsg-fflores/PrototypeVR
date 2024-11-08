@@ -17,6 +17,7 @@ namespace Controllers.UI
         private void DisplayScore()
         {
             List<KeyValuePair<string, int>> scores = ScoreController.Instance.GetScoresOrdered();
+            Debug.LogError($" scores: {scores.Count}");
             foreach (var score in scores)
             {
                 var entryText = Instantiate(_scorePrefab, _scoreListContainer);
