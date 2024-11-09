@@ -7,7 +7,7 @@ using Utilities;
 
 namespace Controllers.Game
 {
-    public class ScoreController : Singleton<ScoreController>
+    public class ScoreController : SingletonPunCallbacks<ScoreController>
     {
         private Dictionary<string, int> _playerScores = new();
         // private PhotonView _photonView;

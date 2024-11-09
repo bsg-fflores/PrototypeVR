@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Utilities
 {
-    public abstract class Singleton<T> : MonoBehaviourPunCallbacks where T : MonoBehaviourPunCallbacks
+    public abstract class SingletonPunCallbacks<T> : MonoBehaviourPunCallbacks where T : MonoBehaviourPunCallbacks
     {
         private static T _instance;
         public static T Instance
